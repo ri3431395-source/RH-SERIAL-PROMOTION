@@ -24,6 +24,11 @@ TARGET_FPS = int(os.environ.get("TARGET_FPS", "30"))
 X264_PRESET = os.environ.get("X264_PRESET", "veryfast")  # ultrafast/superfast/veryfast/fast
 X264_CRF = os.environ.get("X264_CRF", "23")
 
+# Limit ffmpeg's encoder threads to reduce peak memory on low-RAM hosts.
+# "0" lets ffmpeg auto-pick (uses more RAM); try "2" or "1" if you still see
+# OOM/SIGKILL (-9) crashes on a small Railway plan.
+FFMPEG_THREADS = os.environ.get("FFMPEG_THREADS", "0")
+
 # Max file size we accept (Telegram hard cap via MTProto is ~2GB for normal accounts)
 MAX_FILE_SIZE = int(os.environ.get("MAX_FILE_SIZE", str(2 * 1024 * 1024 * 1024)))
 
